@@ -34,7 +34,8 @@ dependencies {
 
 def gitSha() {
     try {
-        String gitRev = 'git rev-parse --short HEAD'.execute(null, project.rootDir).text.trim()
+        //String gitRev = 'git rev-parse --short HEAD'.execute(null, project.rootDir).text.trim()
+        String gitRev = GIT_VERSION
         if (gitRev == null) {
             throw new GradleException("can't get git rev, you should add git to system path or just input test value, such as 'testTinkerId'")
         }
@@ -48,7 +49,7 @@ def javaVersion = JavaVersion.VERSION_1_7
 
 android {
     compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    buildToolsVersion '28.0.3'
 
     compileOptions {
         sourceCompatibility javaVersion
