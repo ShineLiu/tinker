@@ -48,15 +48,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Log.e(TAG, "i am on onCreate classloader:" + MainActivity.class.getClassLoader().toString());
         //test resource change
-        Log.e(TAG, "i am on onCreate string:" + getResources().getString(R.string.test_resource));
-//        Log.e(TAG, "i am on patch onCreate");
+//        Log.e(TAG, "i am on onCreate string:" + getResources().getString(R.string.test_resource));
+        Log.e(TAG, "i am on patch onCreate");
 
         Button loadPatchButton = (Button) findViewById(R.id.loadPatch);
 
         loadPatchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TinkerInstaller.onReceiveUpgradePatch(getApplicationContext(), Environment.getExternalStorageDirectory().getAbsolutePath() + "/patch_signed_7zip.apk");
+                TinkerInstaller.onReceiveUpgradePatch(getApplicationContext(), getCacheDir() + "/patch_signed_7zip.apk");
             }
         });
 
@@ -112,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
         final StringBuilder sb = new StringBuilder();
         Tinker tinker = Tinker.with(getApplicationContext());
         if (tinker.isTinkerLoaded()) {
+            sb.append(String.format("[New apk:] \n"));
             sb.append(String.format("[patch is loaded] \n"));
             sb.append(String.format("[buildConfig TINKER_ID] %s \n", BuildInfo.TINKER_ID));
             sb.append(String.format("[buildConfig BASE_TINKER_ID] %s \n", BaseBuildInfo.BASE_TINKER_ID));
@@ -122,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
             sb.append(String.format("[TINKER_ID Rom Space] %d k \n", tinker.getTinkerRomSpace()));
 
         } else {
+            sb.append(String.format("[New apk:] \n"));
             sb.append(String.format("[patch is not loaded] \n"));
             sb.append(String.format("[buildConfig TINKER_ID] %s \n", BuildInfo.TINKER_ID));
             sb.append(String.format("[buildConfig BASE_TINKER_ID] %s \n", BaseBuildInfo.BASE_TINKER_ID));
